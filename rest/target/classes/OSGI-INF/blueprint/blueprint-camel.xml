@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xsi:schemaLocation=
+           "http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+           http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd">
+
+    <cxf:rsServer id="rsServer"
+                  address="http://0.0.0.0:9090/api"
+                  serviceClass="com.marlo.esb.bean.RestService"
+                  loggingFeatureEnabled="true"
+                  loggingSizeLimit="20">
+        <cxf:providers>
+            <!--<bean id="clientRequestException" class="com.jetstar.esb.cxf.ClientErrorExceptionMapper" />
+            address="${jq.esb.cjpr.NotifyActivationRestServiceAddress}"
+            -->
+        </cxf:providers>
+    </cxf:rsServer>
+
+    <bean id="restRouteBuilder" class="com.marlo.esb.route.RestRouteBuilder"/>
+
+    <camelContext id="restNotify" xmlns="http://camel.apache.org/schema/blueprint">
+        <routeBuilder ref="restRouteBuilder"/>
+    </camelContext>
+
+    <!--jms adp leave entitlement files -->
+    <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start">
+                <property name="idleTimeout" value="0"/>  <!-- &lt;!&ndash; Workaround for https://issues.apache.org/jira/browse/AMQ-4366 &ndash;&gt;-->
+                <property name="connectionFactory">
+                    <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+                        <property name="brokerURL" value="tcp://0.0.0.0:61616"/>
+                        <property name="userName"  value="admin"/>
+                        <property name="password"  value="admin"/>
+                        <property name="redeliveryPolicy">
+                            <bean class="org.apache.activemq.RedeliveryPolicy">
+                                <property name="initialRedeliveryDelay" value="60000"/>
+                                <property name="redeliveryDelay" value="60000"/>
+                                <property name="maximumRedeliveryDelay" value="600000"/>
+                                <!--<property name="useExponentialBackOff" value="true"/>-->
+                                <property name="maximumRedeliveries" value="-1"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+                <property name="createConnectionOnStartup" value="true"/>
+            </bean>
+        </property>
+        <property name="acknowledgementModeName" value="CLIENT_ACKNOWLEDGE"/>
+    </bean>
+
+</blueprint>

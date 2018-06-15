@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.marlo.dbms</groupId>
+    <artifactId>violet-demo</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Violet Parent Project</name>
+    <description>This is a demo project using Fuse</description>
+
+    <properties>
+        <version.plugin.felix.maven-bundle-plugin>3.5.0</version.plugin.felix.maven-bundle-plugin>
+        <version.plugin.camel.camal-maven-plugin>2.21.0.fuse-000077-redhat-1</version.plugin.camel.camal-maven-plugin>
+        <version.plugin.maven-resources-plugin>3.0.2</version.plugin.maven-resources-plugin>
+    </properties>
+
+    <modules>
+        <module>hello-fuse</module>
+        <module>file-processor</module>
+        <module>rest</module>
+        <module>jms-client</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Fuse BOM to import all non-plugin dependencies -->
+            <dependency>
+                <groupId>org.jboss.fuse</groupId>
+                <artifactId>jboss-fuse-parent</artifactId>
+                <version>7.0.0.fuse-000191-redhat-1</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-maven-plugin</artifactId>
+                <version>${version.plugin.camel.camal-maven-plugin}</version>
+                <configuration>
+                    <useBlueprint>true</useBlueprint>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${version.plugin.felix.maven-bundle-plugin}</version>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${version.plugin.maven-resources-plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+

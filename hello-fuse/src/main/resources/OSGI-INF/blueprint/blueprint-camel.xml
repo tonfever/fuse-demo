@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xsi:schemaLocation=
+           "http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+           http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd">
+
+    <cm:property-placeholder id="myblueprint.placeholder" persistent-id="camel.blueprint">
+        <cm:default-properties>
+            <cm:property name="prefix.result" value="mock:result"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <bean class="com.fuse.demo.hellofuse.route.HelloFuseRoute" id="helloRouteBuilder"/>
+
+    <camel:camelContext id="example-context">
+        <camel:routeBuilder ref="helloRouteBuilder"/>
+    </camel:camelContext>
+
+</blueprint>

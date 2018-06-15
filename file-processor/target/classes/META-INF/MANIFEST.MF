@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1528874587989
+Build-Jdk: 1.8.0_172
+Built-By: Marlo2018
+Bundle-Blueprint: OSGI-INF/blueprint/blueprint-camel.xml
+Bundle-Description: This is a demo project for DBMS
+Bundle-DocURL: https://marlo.com.au/
+Bundle-ManifestVersion: 2
+Bundle-Name: file-processor
+Bundle-SymbolicName: com.marlo.dbms.file-processor
+Bundle-Vendor: Marlo
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Import-Package: com.fuse.demo.hellofuse.route,org.osgi.service.blueprint
+ ;version="[1.0.0,2.0.0)"
+Tool: Bnd-3.5.0.201709291849

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1529032386328
+Build-Jdk: 1.8.0_131
+Built-By: Marlo2018
+Bundle-Blueprint: OSGI-INF/blueprint/blueprint-camel.xml
+Bundle-Description: This is a demo project for DBMS
+Bundle-DocURL: https://marlo.com.au/
+Bundle-ManifestVersion: 2
+Bundle-Name: Demo Consuming Messages from Queue
+Bundle-SymbolicName: com.marlo.dbms.jms-client
+Bundle-Vendor: Marlo
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.marlo.esb.processor;version="1.0.0";uses:="org.apach
+ e.camel",com.marlo.esb.route;version="1.0.0";uses:="org.apache.camel.bu
+ ilder"
+Import-Package: org.apache.activemq,org.apache.activemq.pool,org.apache.
+ activemq.spring,org.apache.camel;version="[2.21,3)",org.apache.camel.bu
+ ilder;version="[2.21,3)",org.apache.camel.component.jms;version="[2.21,
+ 3)",org.apache.camel.model;version="[2.21,3)",org.osgi.service.blueprin
+ t;version="[1.0.0,2.0.0)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.5))"
+Tool: Bnd-3.5.0.201709291849
